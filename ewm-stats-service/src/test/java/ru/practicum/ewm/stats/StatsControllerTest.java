@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = {StatsController.class})
-@ContextConfiguration(classes = StatsServerApplication.class)
 public class StatsControllerTest {
 
     @MockBean
