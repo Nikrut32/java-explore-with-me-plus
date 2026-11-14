@@ -1,14 +1,56 @@
 services:
   stats-server:
+    build: ./ewm-stats-service
     ports:
       - "9090:9090"
+    depends_on:
+      stats-db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://stats-db:5432/ewm-stats
+      DB_USER: sa
+      DB_PASSWORD: 12345
 
   stats-db:
     image: postgres:16.1
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ewm-stats
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: 12345
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sa -d ewm-stats"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
   ewm-service:
+    build: ./ewm-main-service
     ports:
       - "8080:8080"
+    depends_on:
+      ewm-db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://ewm-db:5432/ewm-main
+      DB_USER: sa
+      DB_PASSWORD: 12345
 
   ewm-db:
     image: postgres:16.1
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ewm-main
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: 12345
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sa -d ewm-main"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+
