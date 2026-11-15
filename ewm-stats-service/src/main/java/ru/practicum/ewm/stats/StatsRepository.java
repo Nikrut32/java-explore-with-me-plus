@@ -20,7 +20,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
             FROM Stats s
             WHERE s.timestamp BETWEEN :start AND :end AND (:urisExists = false OR s.uri IN :uris)
             GROUP BY s.app, s.uri
-            SORT BY hits DESC
+            ORDER BY hits DESC
             """)
     List<StatsProjection> getStats(LocalDateTime start, LocalDateTime end,
                                      List<String> uris, Boolean urisExists, Boolean unique);
