@@ -12,9 +12,7 @@
 
 	<name>Explore With Me</name>
     <modules>
-        <module>ewm-stats-service</module>
-        <module>ewm-stats-dto</module>
-        <module>ewm-stats-client</module>
+		<module>ewm-stats</module>
         <module>ewm-main-service</module>
     </modules>
 
