@@ -1,0 +1,20 @@
+package ru.practicum.ewm.request;
+
+import java.util.List;
+
+import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
+import ru.practicum.ewm.request.dto.EventRequestStatusUpdateResult;
+import ru.practicum.ewm.request.dto.ParticipationRequestDto;
+
+public interface RequestService {
+
+    List<ParticipationRequestDto> getUserRequests(Long userId);
+
+    ParticipationRequestDto addParticipationRequest(Long userId, Long eventId);
+
+    ParticipationRequestDto cancelRequest(Long userId, Long requestId);
+
+    List<ParticipationRequestDto> getEventParticipants(Long userId, Long eventId);
+
+    EventRequestStatusUpdateResult changeRequestStatus(Long userId, Long eventId, EventRequestStatusUpdateRequest updateRequest);
+}
